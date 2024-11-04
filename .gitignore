@@ -1,0 +1,9 @@
+# Ignore all files
+*
+
+# Unignore the .gitignore file itself
+!.gitignore
+
+# Unignore the folders ElsaServer and ElsaStudioBlazorServer
+!/ElsaServer/
+!/ElsaStudioBlazorServer/
