@@ -1,0 +1,31 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Elsa" Version="3.2.0" />
+    <PackageReference Include="Elsa.Activities.Console" Version="2.14.1" />
+    <PackageReference Include="Elsa.Activities.Http" Version="2.14.1" />
+    <PackageReference Include="Elsa.Api.Client" Version="3.2.0" />
+    <PackageReference Include="Elsa.EntityFrameworkCore.Sqlite" Version="3.2.0" />
+    <PackageReference Include="Elsa.Http" Version="3.2.0" />
+    <PackageReference Include="Elsa.Identity" Version="3.2.0" />
+    <PackageReference Include="Elsa.Liquid" Version="3.2.0" />
+    <PackageReference Include="Elsa.Persistence.EntityFramework.Core" Version="2.14.1" />
+    <PackageReference Include="Elsa.Persistence.EntityFramework.SqlServer" Version="2.14.1" />
+    <PackageReference Include="Elsa.Server.Api" Version="2.14.1" />
+    <PackageReference Include="Elsa.Studio" Version="3.2.0" />
+    <PackageReference Include="Elsa.Studio.Core.BlazorServer" Version="3.2.0" />
+    <PackageReference Include="Elsa.Studio.Login.BlazorServer" Version="3.2.0" />
+    <PackageReference Include="Elsa.Workflows.Api" Version="3.2.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="wwwroot\css\" />
+  </ItemGroup>
+
+</Project>
