@@ -23,9 +23,9 @@ namespace ElsaServer.Workflows
 
 		protected override void Build(IWorkflowBuilder builder)
 		{
-			builder
-				.Timer(Duration.FromSeconds(5))
-				.WriteLine(() => $"It's now {_clock.GetCurrentInstant()}. Let's do this thing!");
+			//builder
+			//	.Timer(Duration.FromSeconds(5))
+			//	.WriteLine(() => $"It's now {_clock.GetCurrentInstant()}. Let's do this thing!");
 		}
 	}
 }
