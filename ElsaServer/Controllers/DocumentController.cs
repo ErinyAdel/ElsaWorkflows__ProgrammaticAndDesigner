@@ -1,5 +1,6 @@
-﻿using Elsa.Services;
-using Elsa.Workflows.Models;
+﻿using Elsa;
+using Elsa.Persistence;
+using Elsa.Services;
 using Elsa.Workflows.Runtime.Contracts;
 using ElsaServer.Interfaces;
 using ElsaServer.Models;
@@ -11,14 +12,14 @@ namespace ElsaServer.Controllers
     public class DocumentController : Controller
     {
         private readonly IDocumentService _documentService;
-        //private readonly IWorkflowInstanceDispatcher _workflowInstanceDispatcher;
         private readonly IWorkflowRuntime _workflowRuntime;
+        private readonly IWorkflowInstanceStore _workflowInstanceStore;
 
-        public DocumentController(IDocumentService documentService, /*IWorkflowInstanceDispatcher workflowInstanceDispatcher*/ IWorkflowRuntime workflowRuntime)
+        public DocumentController(IDocumentService documentService, IWorkflowRuntime workflowRuntime, IWorkflowInstanceStore workflowInstanceStore)
         {
             _documentService = documentService;
-            //_workflowInstanceDispatcher = workflowInstanceDispatcher ?? throw new ArgumentNullException(nameof(workflowInstanceDispatcher));
             _workflowRuntime = workflowRuntime;
+            _workflowInstanceStore = workflowInstanceStore;
         }
 
         [HttpPost("SaveDocumentAsync")]
@@ -48,14 +49,57 @@ namespace ElsaServer.Controllers
         {
             await _workflowRuntime.ResumeWorkflowAsync(instanceId, null);
 
-            //var dispatchRequest = new ExecuteWorkflowInstanceRequest(instanceId)
-            //{
-            //    Input = null
-            //};
-
-            //await _workflowInstanceDispatcher.DispatchAsync(dispatchRequest);
-
             return Ok(new { message = "Workflow resumed successfully" });
         }
+
+        //[HttpPost("start")]
+        //public async Task<IActionResult> StartWorkflow(string workflowDefinitionId)
+        //{
+        //    // Generate a unique Correlation ID
+        //    var correlationId = Guid.NewGuid().ToString();
+
+        //    // Start the workflow with the Correlation ID
+        //    var startWorkflowOptions = new StartWorkflowOptions
+        //    {
+        //        CorrelationId = correlationId
+        //    };
+
+        //    var workflowInstance = await _workflowRuntime.StartWorkflowAsync(workflowDefinitionId, startWorkflowOptions);
+
+        //    return Ok(new
+        //    {
+        //        message = "Workflow started successfully",
+        //        workflowInstanceId = workflowInstance.Id,
+        //        correlationId = workflowInstance.CorrelationId
+        //    });
+        //}
+
+        //[HttpPost("resume")]
+        //public async Task<IActionResult> ResumeWorkflow(string correlationId, [FromBody] WorkflowInput input)
+        //{
+        //    await _workflowRuntime.ResumeWorkflowAsync(instanceId: null, correlationId: correlationId, input: input);
+
+        //    return Ok(new { message = "Workflow resumed successfully" });
+        //}
+
+        //[HttpPost("{instanceId}/execute")]
+        //public async Task<IActionResult> ResumeWorkflow(string instanceId)
+        //{
+        //    var workflow = await _workflowInstanceStore.FindByIdAsync(instanceId);
+
+        //    if (workflow == null)
+        //        return NotFound(new { errorMessage = "No workflow found with the given instanceId." });
+
+        //    await _workflowRuntime.ResumeWorkflowAsync(instanceId, null);
+
+        //    return Ok(new { message = "Workflow resumed successfully", instanceId });
+        //}
+    }
+
+    public class WorkflowInput
+    {
+        public string Id { get; set; }
+        public bool IsAccepted { get; set; }
+        public string EventResponse { get; set; }
     }
 }
